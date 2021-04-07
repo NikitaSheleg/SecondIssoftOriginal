@@ -6,6 +6,8 @@ import entity.Order;
 import entity.OrderState;
 import jdk.jshell.spi.ExecutionControl;
 
+import java.util.Arrays;
+
 public class OrderService {
     private final OrderValidator orderValidator;
     private final OrderDAO orderDAO;
@@ -21,21 +23,34 @@ public class OrderService {
         if (orderValidator.validate(order)) {
             try {
                 order.setState(OrderState.INIT);
-                orderDAO.saveOrder(order);
-                orderItemDAO.saveAllOrderItems(order.getOrderItems());
+                if ( orderDAO.saveOrder(order)&& orderItemDAO.saveAllOrderItems(order.getOrderItems()))
+                    return true;
+               ;
             } catch (ExecutionControl.NotImplementedException e) {
                 return false;
             }
         } else return false;
 
-        return true;
+        return false;
     }
 
     public Order[] loadAllByUserId(int userId) throws ExecutionControl.NotImplementedException {
-        return orderDAO.loadOrdersByUserId(userId);
+        Order[] orders = orderDAO.loadOrdersByUserId(userId);
+        Arrays.stream(orders).forEach(order -> {
+            try {
+                order.setOrderItems(orderItemDAO.loadAllItemsByOrderId(order.getId()));
+            } catch (ExecutionControl.NotImplementedException e) {
+                e.printStackTrace();
+            }
+        });
+        return orders;
     }
 
-
+    public Order loadOrderByUserId(int userId) throws ExecutionControl.NotImplementedException {
+        Order order = orderDAO.loadOrderByUserId(userId);
+        order.setOrderItems(orderItemDAO.loadAllItemsByOrderId(order.getId()));
+        return order;
+    }
 
 
 }

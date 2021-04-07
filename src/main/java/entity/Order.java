@@ -9,13 +9,15 @@ public class Order {
     private String address;
     private OrderState state;
 
-    public Order(int id, int userid, LocalDate date, OrderItem[] orderItems, String address) {
+    public Order(int id, int userid, LocalDate date, OrderItem[] orderItems, String address, OrderState state) {
         this.id = id;
         this.userid = userid;
         this.date = date;
         this.orderItems = orderItems;
         this.address = address;
+        this.state = state;
     }
+
 
     public int getId() {
         return id;

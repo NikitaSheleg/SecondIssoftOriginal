@@ -2,13 +2,22 @@ package entity;
 
 public class OrderItem {
     private String name;
-    private int price, amount, id;
+    private int price, amount, id,orderId;
 
-    public OrderItem(String name, int price, int amount, int id) {
+    public OrderItem(String name, int price, int amount, int id, int orderId) {
         this.name = name;
         this.price = price;
         this.amount = amount;
         this.id = id;
+        this.orderId = orderId;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public int getId() {

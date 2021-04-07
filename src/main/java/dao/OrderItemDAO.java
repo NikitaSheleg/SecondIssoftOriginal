@@ -20,4 +20,8 @@ public class OrderItemDAO {
     public OrderItem[] loadAllItems() throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("load items not implemented");
     }
+    public OrderItem[] loadAllItemsByOrderId(int orderId) throws ExecutionControl.NotImplementedException {
+        throw new ExecutionControl.NotImplementedException("load items not implemented");
+    }
+
 }

@@ -1,7 +1,6 @@
 package dao;
 
 import entity.Order;
-import entity.OrderItem;
 import jdk.jshell.spi.ExecutionControl;
 
 public class OrderDAO {
